@@ -34,7 +34,6 @@ class ApiController extends CI_Controller {
         echo $var;
     }
 
-
     // GETTERs & SETTERs
     public function getDebugMessage() {
         if (!isset($this->debugMessage) || $this->debugMessage == NULL) {
