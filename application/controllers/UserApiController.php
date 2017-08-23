@@ -3,9 +3,7 @@
 require("ApiController.php");
 
 class UserApiController extends ApiController {
-
     public function index() {
-        ApiController::init("Nicholas usando namespaces!");
+        ApiController::init();
     }
-
 }
