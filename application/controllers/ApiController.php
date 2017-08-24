@@ -9,13 +9,20 @@ class ApiController extends CI_Controller {
      */
     private $debugMessage;
 
+    /** 
+     * Formato da data para as mensagens de log
+     * 
+     * @var string
+     */
+    private $dateFormat = "d/m/Y H:i:s";
+
     /**
      * Aqui vamos nós...
      */
     public function __construct() {
         parent::__construct();
 
-        $this->registerLog("info", date("d/m/Y H:i:s") . " - [INFO] - Iniciando aplicação!");
+        $this->registerLog("info", "[INFO] - Iniciando aplicação!");
     }
 
     /**
@@ -39,11 +46,10 @@ class ApiController extends CI_Controller {
      */
     private function openConnection() {
         try {
-            if ($this->load->database()) {
-                $this->registerLog("info", date("d/m/Y H:i:s") . " - [INFO] - Conexão realizada com sucesso!");
-            }
+            $this->load->database();
+            $this->registerLog("info", "[INFO] - Conexão realizada com sucesso!");
         } catch (Exception $e) {
-            $this->registerLog("error", date("d/m/Y H:i:s") . " - [ERROR] - Erro ao tentar se conectar com o banco de dados! | Exceção: " + $e->getMessage());
+            $this->registerLog("error", "[ERROR] - Erro ao tentar se conectar com o banco de dados! | Exceção: " + $e->getMessage());
         }
     }
 
@@ -56,12 +62,12 @@ class ApiController extends CI_Controller {
         try {
             if ($this->load->database()) {
                 $this->database->close();
-                $this->registerLog("info", date("d/m/Y H:i:s") . " - [INFO] - Conexão finalizada com sucesso!");
+                $this->registerLog("info", "[INFO] - Conexão finalizada com sucesso!");
             } else {
-                $this->registerLog("info", date("d/m/Y H:i:s") . " - [INFO] - Conexão não iniciada!");
+                $this->registerLog("info", "[INFO] - Conexão não iniciada!");
             }
         } catch (Exception $e) {
-            $this->registerLog("error", date("d/m/Y H:i:s") . " - [ERROR] - Erro ao encerrar a conexão com o banco de dados! | Exceção: " + $e->getMessage());
+            $this->registerLog("error", "[ERROR] - Erro ao encerrar a conexão com o banco de dados! | Exceção: " + $e->getMessage());
         }
     }
 
