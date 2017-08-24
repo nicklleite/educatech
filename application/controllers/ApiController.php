@@ -9,6 +9,22 @@ class ApiController extends CI_Controller {
      */
     private $debugMessage;
 
+    /** 
+     * Formato da data para as mensagens de log
+     * 
+     * @var string
+     */
+    private $dateFormat = "d/m/Y H:i:s";
+
+    /**
+     * Aqui vamos nós...
+     */
+    public function __construct() {
+        parent::__construct();
+
+        $this->registerLog("info", "[INFO] - Iniciando aplicação!");
+    }
+
     /**
      * Inicia todas as configurações e conexões dos serviços.
      * 
@@ -16,32 +32,59 @@ class ApiController extends CI_Controller {
      * @return void
      */
     public function init($debug = FALSE) {
-        $this->testConnection();
-        $this->print($print);
-    }
-
-    private function testConnection() {
-        try {
-            if ($this->load->database()) {
-                $this->print("Conexão com o banco bem sucedida!");
-            }
-        } catch (Exception $e) {
-            $this->setDebugMessage("Erro ao tentar se conectar com o banco de dados! [ERRO] ==> " + $e->getMessage());
+        $this->openConnection();
+        if ($debug) {
+            echo "<pre>";print_r($this->getDebugMessage());echo "</pre>";
         }
     }
 
-    private function print($var = "EMPTY") {
-        echo $var;
+    /**
+     * Abre uma nova conexão com o banco de dados, com os
+     * dados fornecidos no arquivo /application/config/database.php
+     * 
+     * @return void
+     */
+    private function openConnection() {
+        try {
+            $this->load->database();
+            $this->registerLog("info", "[INFO] - Conexão realizada com sucesso!");
+        } catch (Exception $e) {
+            $this->registerLog("error", "[ERROR] - Erro ao tentar se conectar com o banco de dados! | Exceção: " + $e->getMessage());
+        }
+    }
+
+    /**
+     * Encerra uma conexão com o banco de dados
+     * 
+     * @return void
+     */
+    private function closeConnection() {
+        try {
+            if ($this->load->database()) {
+                $this->database->close();
+                $this->registerLog("info", "[INFO] - Conexão finalizada com sucesso!");
+            } else {
+                $this->registerLog("info", "[INFO] - Conexão não iniciada!");
+            }
+        } catch (Exception $e) {
+            $this->registerLog("error", "[ERROR] - Erro ao encerrar a conexão com o banco de dados! | Exceção: " + $e->getMessage());
+        }
+    }
+
+    // HELPERS
+    private function registerLog($level, $msg) {
+        log_message($level, $msg);
+        $this->setDebugMessage($msg);
     }
 
     // GETTERs & SETTERs
     public function getDebugMessage() {
-        if (!isset($this->debugMessage) || $this->debugMessage == NULL) {
+        if (!isset($this->debugMessage)) {
             $this->debugMessage = "";
         }
         return $this->debugMessage;
     }
     public function setDebugMessage($debugMessage) {
-        $this->debugMessage = $debugMessage;
+        $this->debugMessage .= $debugMessage . "\n";
     }
 }
