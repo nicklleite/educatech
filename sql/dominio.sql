@@ -1,12 +1,13 @@
 ﻿/*
-* Base de dados
-* NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
+*	Base de dados
+*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
 * 
-* Script para criação da tabela DOMINIO
+*	Script para criação da tabela DOMINIO
 * 
-* @author Nicholas Leite <nicklleite@gmail.com>
-* @repo https://github.com/nicklleite/nllws
-* @date 24/08/2017
+*	@author Nicholas Leite <nicklleite@gmail.com>
+*	@repo https://github.com/nicklleite/nllws
+*	@date 24/08/2017
+*
 */
 
 -- SEQUENCE para a chave primária

@@ -1,12 +1,13 @@
 ﻿/*
-* Base de dados
-* NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
+*	Base de dados
+*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
 * 
-* Script para criação das tabelas referentes ao módulo EMPRESA
+*	Script para criação das tabelas referentes ao módulo EMPRESA
 * 
-* @author Nicholas Leite <nicklleite@gmail.com>
-* @repo https://github.com/nicklleite/nllws
-* @date 24/08/2017
+*	@author Nicholas Leite <nicklleite@gmail.com>
+*	@repo https://github.com/nicklleite/nllws
+*	@date 24/08/2017
+*
 */
 
 -- SEQUENCE para a chave primária
@@ -19,13 +20,20 @@ NO MAXVALUE;
 DROP TABLE IF EXISTS EMPRESA;
 CREATE TABLE EMPRESA (
 	ID BIGINT NOT NULL CONSTRAINT EMPRESA_PK PRIMARY KEY DEFAULT NEXTVAL('EMPRESA_SEQ'),
-    CIDADE_ID BIGINT NOT NULL, -- FOREIGN KEY
     RAZAO_SOCIAL VARCHAR(200) NOT NULL,
     NOME_FANTASIA VARCHAR(200) NOT NULL,
     CNPJ VARCHAR(14) NOT NULL,
-    ENDERECO VARCHAR(255) NOT NULL,
+    
+    CEP VARCHAR(8) NOT NULL,
+    CIDADE_ID BIGINT NOT NULL, -- FOREIGN KEY
+    DM_LOGRADOURO VARCHAR(2) NOT NULL CONSTRAINT EMPRESA_DMLOGRADOURO_CK CHECK (DM_LOGRADOURO IN ('R', 'AV', 'TV', 'VL', 'ROD')),
+    ENDERECO VARCHAR(100) NOT NULL,
+    NUMERO VARCHAR(5) NOT NULL,
+    COMPLEMENTO VARCHAR(50),
     BAIRRO VARCHAR (200) NOT NULL,
-    DM_SITUACAO SMALLINT NOT NULL DEFAULT 0 CONSTRAINT EMPRESA_DMSITUACAO_CK CHECK (DM_ROLE < 99),
+    DM_SITUACAO SMALLINT NOT NULL DEFAULT 0 CONSTRAINT EMPRESA_DMSITUACAO_CK CHECK (DM_SITUACAO IN (0, 1, 2, 3)),
+    -- 0 - Inativo
+    -- 1 - 
 );
 
 
