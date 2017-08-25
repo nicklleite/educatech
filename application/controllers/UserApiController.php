@@ -13,4 +13,9 @@ class UserApiController extends ApiController {
     public function index() {
         
     }
+
+    // GET
+    // POST
+    // PUT
+    // DELETE
 }

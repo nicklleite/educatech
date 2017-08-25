@@ -9,13 +9,6 @@ class ApiController extends CI_Controller {
      */
     private $debugMessage;
 
-    /** 
-     * Formato da data para as mensagens de log
-     * 
-     * @var string
-     */
-    private $dateFormat = "d/m/Y H:i:s";
-
     /**
      * Aqui vamos nós...
      */
@@ -28,7 +21,8 @@ class ApiController extends CI_Controller {
     /**
      * Inicia todas as configurações e conexões dos serviços.
      * 
-     * @param string debug Indica se o debug está ou não ativo.
+     * @param boolean debug Indica se o debug está ou não ativo.
+     * 
      * @return void
      */
     public function init($debug = FALSE) {
