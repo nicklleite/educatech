@@ -7,15 +7,18 @@ class UserApiController extends ApiController {
     public function __construct() {
         parent::__construct();
 
-        ApiController::init(TRUE);
+        ApiController::init(FALSE);
     }
 
     public function index() {
         
     }
 
-    // GET
-    // POST
-    // PUT
-    // DELETE
+    public function getUsers() {
+
+    }
+
+    public function getUsersFilter($filter, $keyword) {
+
+    }
 }
