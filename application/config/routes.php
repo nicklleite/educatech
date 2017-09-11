@@ -7,6 +7,6 @@ $route['translate_uri_dashes'] = FALSE;
 // --
 $route['api/usuario'] = "UserApiController/index";
 
-
+$route['api/dominio'] = "DominioApiController/index";
 $route['api/dominio/todos'] = "DominioApiController/buscarTodos";
 $route['api/dominio/por-descr/(:any)'] = "DominioApiController/buscarPorDescr/$1";

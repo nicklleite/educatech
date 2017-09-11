@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-require("ApiController.php");
+require_once("ApiController.php");
 
 class DominioApiController extends ApiController {
 
@@ -12,7 +12,7 @@ class DominioApiController extends ApiController {
     }
 
     public function index() {
-        
+        redirect(base_url() . 'api/dominio/todos');
     }
 
     public function buscarTodos() {
@@ -20,45 +20,44 @@ class DominioApiController extends ApiController {
         $q = $this->dominio->buscar();
         $data = array();
         
-        foreach ($q->result() as $row) {
-            $data[$row->id] = $row->vl . " => " . $row->descr;
-            // $data[$row->id] = array (
-            //     $row->vl => $row->descr
-            // );
-            // $data[$row->dominio] = $row->descr;
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $row) {
+                $q2 = $this->dominio->buscarPorDescr($row->dominio);
+                $data[$row->dominio] = array();
+
+                foreach ($q2->result() as $row2) {
+                    array_push($data[$row->dominio], array($row2->vl => $row2->descr));
+                }
+            }
+        } else {
+            $data["-1"] = "Nenhum registro encontrado!";
         }
         
-        echo utf8_decode(json_encode($data));
+        echo json_encode($data);
     }
 
     public function buscarPorDescr($dominio) {
-
+        $data = array();
         if (is_string($dominio) && $dominio != "") {
             header("Content-Type: application/json");
             $q = $this->dominio->buscarPorDescr($dominio);
-            $data = array();
             
             if ($q->num_rows() > 0) {
                 foreach ($q->result() as $row) {
-                    // echo "<pre>";print_r($row);echo "</pre>";
-                    // $data[$row->vl] = $row->descr;
-                    $data[$row->id] = array (
-                        $row->vl => $row->descr
-                    );
+                    $q2 = $this->dominio->buscarPorDescr($row->dominio);
+                    $data[$row->dominio] = array();
+
+                    foreach ($q2->result() as $row2) {
+                        array_push($data[$row->dominio], array($row2->vl => $row2->descr));
+                    }
                 }
             } else {
                 $data["-1"] = "Nenhum registro encontrado!";
             }
-            
-            echo json_encode($data);
         } else {
-
+            $data["-1"] = "Erro na pesquisa!";
         }
 
-    }
-
-
-    public function getDominioFilter($filter, $keyword) {
-
+        echo json_encode($data);
     }
 }
