@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 if (ENVIRONMENT == "development") {
-    $config['base_url'] = 'http://nllws.dev/';
+    $config['base_url'] = 'http://educatech.dev/';
 } else if (ENVIRONMENT == "testing") {
     $config['base_url'] = 'http://webservice.nicholasleite.com.br/';
 }
