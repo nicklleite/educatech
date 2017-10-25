@@ -16,7 +16,6 @@ class DominioApiController extends ApiController {
     }
 
     public function buscarTodos() {
-        header("Content-Type: application/json");
         $q = $this->dominio->buscar();
         $data = array();
         
@@ -29,17 +28,20 @@ class DominioApiController extends ApiController {
                     array_push($data[$row->dominio], array($row2->vl => $row2->descr));
                 }
             }
+            // $data = $q->result_array();
         } else {
-            $data["-1"] = "Nenhum registro encontrado!";
+            $data["resposta"] = 404;
+            $data["mensagem"] = "Nenhum registro encontrado!";
         }
         
         echo json_encode($data);
     }
 
     public function buscarPorDescr($dominio) {
+        header("Content-Type: application/json");
+
         $data = array();
-        if (is_string($dominio) && $dominio != "") {
-            header("Content-Type: application/json");
+        if (isset($dominio) && $dominio != "") {
             $q = $this->dominio->buscarPorDescr($dominio);
             
             if ($q->num_rows() > 0) {
@@ -52,10 +54,9 @@ class DominioApiController extends ApiController {
                     }
                 }
             } else {
-                $data["-1"] = "Nenhum registro encontrado!";
+                $data["resposta"] = 404;
+                $data["mensagem"] = "Nenhum registro encontrado!";
             }
-        } else {
-            $data["-1"] = "Erro na pesquisa!";
         }
 
         echo json_encode($data);
