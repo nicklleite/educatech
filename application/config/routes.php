@@ -13,6 +13,8 @@ $route['translate_uri_dashes'] = FALSE;
  * 4) http://educatech.dev/api/dominio | PATCH
  * 5) http://educatech.dev/api/dominio | DELETE
  *
+ * @see  https://www.codeigniter.com/userguide3/general/routing.html
+ *
  * @author Nicholas Leite <nicklleite@gmail.com>
  * @package application\config
  * @since v0.0.0
