@@ -7,6 +7,17 @@ class DominioApiController extends CI_Controller {
         $this->load->model('DominioModel', 'dominio', TRUE);
     }
 
+    /**
+     * Função que retorna todos os registros de domínios.
+     * Método HTTP: GET
+     * 
+     * @return void
+     *
+     * @author Nicholas Leite <nicklleite@gmail.com>
+     * @package application\controllers
+     * @since v0.0.0
+     * @version v0.0.3
+     */
     public function getAll() {
         header("Content-Type: application/json");
 
@@ -14,15 +25,6 @@ class DominioApiController extends CI_Controller {
         $data = array();
         
         if ($q->num_rows() > 0) {
-            // Exibe os dados agrupados por domínio.
-            // foreach ($q->result() as $row) {
-            //     $q2 = $this->dominio->buscarPorDescr($row->dominio);
-            //     $data[$row->dominio] = array();
-
-            //     foreach ($q2->result() as $row2) {
-            //         array_push($data[$row->dominio], array($row2->vl => $row2->descr));
-            //     }
-            // }
             $data = $q->result_array();
         } else {
             $data["resposta"] = 404;
@@ -32,22 +34,28 @@ class DominioApiController extends CI_Controller {
         echo json_encode($data);
     }
 
+    /**
+     * Função que retorna todos os registros de domínios, com base em um
+     * parâmetro.
+     * Método HTTP: GET
+     *
+     * @param string $dominio
+     * @return void
+     *
+     * @author Nicholas Leite <nicklleite@gmail.com>
+     * @package application\controllers
+     * @since v0.0.0
+     * @version v0.0.3
+     */
     public function getByDominio($dominio) {
         header("Content-Type: application/json");
 
-        $data = array();
         if (isset($dominio) && $dominio != "") {
+            $data = array();
             $q = $this->dominio->buscarPorDescr($dominio);
             
             if ($q->num_rows() > 0) {
-                foreach ($q->result() as $row) {
-                    $q2 = $this->dominio->buscarPorDescr($row->dominio);
-                    $data[$row->dominio] = array();
-
-                    foreach ($q2->result() as $row2) {
-                        array_push($data[$row->dominio], array($row2->vl => $row2->descr));
-                    }
-                }
+                $data = $q->result_array();
             } else {
                 $data["resposta"] = 404;
                 $data["mensagem"] = "Nenhum registro encontrado!";
