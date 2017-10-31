@@ -7,8 +7,8 @@ $route['translate_uri_dashes'] = FALSE;
 /**
  * Rotas para a consulta de valores de domínios
  *
- * 1) http://educatech.dev/api/dominio | GET
- * 2) http://educatech.dev/api/dominio/INSTITUICAO.DM_SITUACAO | GET
+ * 1) http://educatech.dev/api/dominio | GET | Retorna todos os domínios
+ * 2) http://educatech.dev/api/dominio/INSTITUICAO.DM_SITUACAO | GET | Retorna os valores de um domínio
  *
  * @see  https://www.codeigniter.com/userguide3/general/routing.html
  *
@@ -23,10 +23,9 @@ $route['api/dominio/([a-zA-Z-_]+(.)[a-zA-Z-_]+)']['get'] = "DominioApiController
 /**
  * Rotas para a consulta de valores de domínios
  *
- * 1) http://educatech.dev/api/cidade | GET
- * 2) http://educatech.dev/api/cidade | POST
- * 3) http://educatech.dev/api/cidade | PATCH
- * 4) http://educatech.dev/api/cidade | DELETE
+ * 1) http://educatech.dev/api/cidade | GET | Retornar todas as cidades
+ * 2) http://educatech.dev/api/cidade/$estadoId | GET | Retornar cidades do estado mencionado
+ * 3) http://educatech.dev/api/cidade/$cidade | GET | Retornar cidade pelo nome
  *
  * @see  https://www.codeigniter.com/userguide3/general/routing.html
  *
@@ -39,4 +38,3 @@ $route['api/cidade']['get'] = "CidadeApiController/getAll";
 $route['api/cidade/([1-27]|1[0-2])']['get'] = "CidadeApiController/getPorEstado/$1";
 $route['api/cidade/([0-9]{1,7})']['get'] = "CidadeApiController/getPorCodIbge/$1";
 $route['api/cidade/([a-zA-Z]+)']['get'] = "CidadeApiController/getPorNome/$1";
-$route['api/cidade/([a-zA-Z]+)/(true|false)']['get'] = "CidadeApiController/getPorNome/$1/$2";
