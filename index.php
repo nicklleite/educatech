@@ -53,13 +53,15 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-if ($_SERVER['SERVER_NAME'] == "nllws.dev") {
+if ($_SERVER['SERVER_NAME'] == "educatech.dev") {
 	define('ENVIRONMENT', 'development');
-} else if ($_SERVER['SERVER_NAME'] == "webservice.nicholasleite.com.br") {
+} else if ($_SERVER['SERVER_NAME'] == "educatech.nicholasleite.com.br") {
 	define('ENVIRONMENT', 'testing');
 } else {
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 }
+
+date_default_timezone_set('America/Sao_Paulo');
 
 /*
  *---------------------------------------------------------------

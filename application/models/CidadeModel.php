@@ -58,16 +58,4 @@ class CidadeModel extends CI_Model {
         $query = $this->db->get("cidade");
         return $query;
     }
-
-    public function buscarPorNome($cidade, $like) {
-    	if ($like) {
-    		$this->db->where('UPPER(cidade)', strtoupper($cidade));
-    	} else {
-    		$this->db->like('UPPER(cidade)', strtoupper($cidade));
-    	}
-    	$this->db->order_by('cidade', 'ASC');
-    	$query = $this->db->get("cidade");
-        return $query;
-    }
-
 }
