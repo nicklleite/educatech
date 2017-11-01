@@ -1,14 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class CidadeApiController extends CI_Controller {
+class EstadoApiController extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('CidadeModel', 'cidade', TRUE);
+        $this->load->model('EstadoModel', 'estado', TRUE);
     }
 
     /**
-     * Função que retorna todos as cidades.
+     * Função que retorna todos os estados.
      * Método HTTP: GET
      * 
      * @return void
@@ -21,7 +21,7 @@ class CidadeApiController extends CI_Controller {
     public function getAll() {
         header("Content-Type: application/json");
 
-        $q = $this->cidade->buscar();
+        $q = $this->estado->buscar();
         $data = array();
         
         if ($q->num_rows() > 0) {
@@ -35,35 +35,7 @@ class CidadeApiController extends CI_Controller {
     }
 
     /**
-     * Função que retorna todos as cidades com base no ID do estado.
-     * Método HTTP: GET
-     *
-     * @param integer $estadoId
-     * @return void
-     *
-     * @author Nicholas Leite <nicklleite@gmail.com>
-     * @package application\controllers
-     * @since v0.0.3
-     * @version v0.0.3
-     */
-    public function getPorEstado($estadoId) {
-        header("Content-Type: application/json");
-
-        $q = $this->cidade->buscarPorEstado($estadoId);
-        $data = array();
-        
-        if ($q->num_rows() > 0) {
-            $data = $q->result_array();
-        } else {
-            $data["resposta"] = 404;
-            $data["mensagem"] = "Nenhum registro encontrado!";
-        }
-        
-        echo json_encode($data);
-    }
-
-    /**
-     * Função que retorna todos as cidades com base no código do IBGE.
+     * Função que retorna todos os estados com base no código do IBGE.
      * Método HTTP: GET
      *
      * @param integer $codIbge
@@ -77,7 +49,7 @@ class CidadeApiController extends CI_Controller {
     public function getPorCodIbge($codIbge) {
         header("Content-Type: application/json");
 
-        $q = $this->cidade->buscarPorCodIbge($codIbge);
+        $q = $this->estado->buscarPorCodIbge($codIbge);
         $data = array();
         
         if ($q->num_rows() > 0) {
