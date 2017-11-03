@@ -1,14 +1,13 @@
-﻿/*
-*	Base de dados
-*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
-* 
-*	Script para criação da tabela DOCUMENTOS
-* 
-*	@author Nicholas Leite <nicklleite@gmail.com>
-*	@repo https://github.com/nicklleite/nllws
-*	@date 01/09/2017
-*
-*/
+﻿/**
+ * Base de dados - EducaTech
+ *
+ * Script para criação da tabela DOCUMENTOS
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @see https://github.com/nicklleite/educatech
+ * @date 01/09/2017
+ * 
+ */
 
 -- SEQUENCE para a chave primária
 CREATE SEQUENCE DOCUMENTOS_SEQ
@@ -24,7 +23,6 @@ CREATE TABLE DOCUMENTOS (
     ID BIGINT NOT NULL DEFAULT NEXTVAL('DOCUMENTOS_SEQ'),
     EMPRESA_ID BIGINT NOT NULL,
     DISCIPLINA_ID BIGINT NOT NULL,
-
     COD VARCHAR(10) NOT NULL,
     NOME VARCHAR(100) NOT NULL,
     TIPO VARCHAR(30) NOT NULL,
@@ -33,8 +31,7 @@ CREATE TABLE DOCUMENTOS (
     OBSERVACOES TEXT NOT NULL,
     MENSAGENS_ATIVIDADE TEXT NOT NULL,
     DATA_ENVIO TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    DM_SITUACAO VARCHAR(1) NOT NULL,
+    DM_SITUACAO VARCHAR(1) NOT NULL DEFAULT '0',
 
     CONSTRAINT DOCUMENTOS_PK PRIMARY KEY (ID)
 );
@@ -55,9 +52,9 @@ ALTER TABLE DOCUMENTOS
     ADD CONSTRAINT DOCUMENTOS_DMSITUACAO_CK CHECK (DM_SITUACAO IN ('0', '1', '2'));
 INSERT INTO DOMINIO
 VALUES
-    (NEXTVAL('DOMINIO_SEQ'), '1', 'DOCUMENTOS.DM_SITUACAO', 'Disponível'),
-    (NEXTVAL('DOMINIO_SEQ'), '2', 'DOCUMENTOS.DM_SITUACAO', 'Disponível - Professor'),
-    (NEXTVAL('DOMINIO_SEQ'), '3', 'DOCUMENTOS.DM_SITUACAO', 'Indisponível');
+    (NEXTVAL('DOMINIO_SEQ'), '0', 'DOCUMENTOS.DM_SITUACAO', 'Disponível'),
+    (NEXTVAL('DOMINIO_SEQ'), '1', 'DOCUMENTOS.DM_SITUACAO', 'Disponível - Professor'),
+    (NEXTVAL('DOMINIO_SEQ'), '2', 'DOCUMENTOS.DM_SITUACAO', 'Indisponível');
 
 ALTER TABLE DOCUMENTOS
     ADD CONSTRAINT DOCUMENTOS_UK UNIQUE (COD);

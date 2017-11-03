@@ -18,7 +18,7 @@ class EstadoApiController extends CI_Controller {
      * @since v0.0.3
      * @version v0.0.3
      */
-    public function getAll() {
+    public function buscarEstados() {
         header("Content-Type: application/json");
 
         $q = $this->estado->buscar();
@@ -46,7 +46,7 @@ class EstadoApiController extends CI_Controller {
      * @since v0.0.3
      * @version v0.0.3
      */
-    public function getPorCodIbge($codIbge) {
+    public function buscarEstadosPorCodIbge($codIbge) {
         header("Content-Type: application/json");
 
         $q = $this->estado->buscarPorCodIbge($codIbge);

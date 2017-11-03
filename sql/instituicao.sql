@@ -1,14 +1,13 @@
-﻿/*
-*	Base de dados
-*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
-* 
-*	Script para criação da tabela INSTITUICAO
-* 
-*	@author Nicholas Leite <nicklleite@gmail.com>
-*	@repo https://github.com/nicklleite/nllws
-*	@date 28/08/2017
-*
-*/
+﻿/**
+ * Base de dados - EducaTech
+ *
+ * Script para criação da tabela INSTITUICAO
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @see https://github.com/nicklleite/educatech
+ * @date 28/08/2017
+ * 
+ */
 
 -- SEQUENCE para a chave primária
 CREATE SEQUENCE INSTITUICAO_SEQ
@@ -24,7 +23,7 @@ CREATE TABLE INSTITUICAO (
     ID BIGINT NOT NULL DEFAULT NEXTVAL('INSTITUICAO_SEQ'),
     COD VARCHAR(3) NOT NULL,
     DM_TIPO VARCHAR(1) NOT NULL,
-    DM_SITUACAO VARCHAR(1) NOT NULL,
+    DM_SITUACAO VARCHAR(1) NOT NULL DEFAULT '0',
     NOME VARCHAR(150) NOT NULL,
 
     CONSTRAINT INSTITUICAO_PK PRIMARY KEY (ID)
@@ -35,11 +34,14 @@ ALTER SEQUENCE INSTITUICAO_SEQ OWNED BY INSTITUICAO.ID;
 ALTER TABLE INSTITUICAO
     ADD CONSTRAINT DMTIPO_CK CHECK (DM_TIPO IN ('0', '1', '2'));
 
+ALTER TABLE INSTITUICAO
+    ADD CONSTRAINT DMSITUACAO_CK CHECK (DM_SITUACAO IN ('0', '1'));
+
 INSERT INTO DOMINIO
 VALUES
-	(NEXTVAL('DOMINIO_SEQ'), '1', 'INSTITUICAO.DM_TIPO', 'Faculdade'),
-	(NEXTVAL('DOMINIO_SEQ'), '2', 'INSTITUICAO.DM_TIPO', 'Centro Universitario'),
-    (NEXTVAL('DOMINIO_SEQ'), '3', 'INSTITUICAO.DM_TIPO', 'Universidade'),
+	(NEXTVAL('DOMINIO_SEQ'), '0', 'INSTITUICAO.DM_TIPO', 'Faculdade'),
+	(NEXTVAL('DOMINIO_SEQ'), '1', 'INSTITUICAO.DM_TIPO', 'Centro Universitario'),
+    (NEXTVAL('DOMINIO_SEQ'), '2', 'INSTITUICAO.DM_TIPO', 'Universidade'),
     (NEXTVAL('DOMINIO_SEQ'), '0', 'INSTITUICAO.DM_SITUACAO', 'Ativa'),
     (NEXTVAL('DOMINIO_SEQ'), '1', 'INSTITUICAO.DM_SITUACAO', 'Inativa');
 
@@ -48,5 +50,4 @@ ALTER TABLE INSTITUICAO
 
 
 -- DELETES
-
 DELETE FROM DOMINIO WHERE DOMINIO LIKE 'INSTITUICAO.%';

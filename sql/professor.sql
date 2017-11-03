@@ -1,14 +1,13 @@
-﻿/*
-*	Base de dados
-*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
-* 
-*	Script para criação da tabela PROFESSOR
-* 
-*	@author Nicholas Leite <nicklleite@gmail.com>
-*	@repo https://github.com/nicklleite/nllws
-*	@date 29/08/2017
-*
-*/
+﻿/**
+ * Base de dados - EducaTech
+ *
+ * Script para criação da tabela PROFESSOR
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @see https://github.com/nicklleite/educatech
+ * @date 29/08/2017
+ * 
+ */
 
 -- SEQUENCE para a chave primária
 CREATE SEQUENCE PROFESSOR_SEQ
@@ -23,10 +22,9 @@ DROP TABLE IF EXISTS PROFESSOR;
 CREATE TABLE PROFESSOR (
     ID BIGINT NOT NULL DEFAULT NEXTVAL('PROFESSOR_SEQ'),
     PESSOA_ID BIGINT NOT NULL,
-
     MATRICULA VARCHAR(7) NOT NULL,
     DATA_CONTR DATE DEFAULT CURRENT_DATE,
-    DM_SITUACAO VARCHAR(2) NOT NULL DEFAULT '0',
+    DM_SITUACAO VARCHAR(1) NOT NULL DEFAULT '0',
 
     CONSTRAINT PROFESSOR_PK PRIMARY KEY (ID)
 );
@@ -40,11 +38,12 @@ CREATE INDEX PROFESSOR_PESSOA_FK_I
 
 ALTER TABLE PROFESSOR
     ADD CONSTRAINT PROFESSOR_DMSITUACAO_CK CHECK (DM_SITUACAO IN ('0', '1', '2'));
+
 INSERT INTO DOMINIO
 VALUES
+    (NEXTVAL('DOMINIO_SEQ'), '0', 'PROFESSOR.DM_SITUACAO', 'Inativo'),
     (NEXTVAL('DOMINIO_SEQ'), '1', 'PROFESSOR.DM_SITUACAO', 'Ativo'),
-    (NEXTVAL('DOMINIO_SEQ'), '2', 'PROFESSOR.DM_SITUACAO', 'Inativo'),
-    (NEXTVAL('DOMINIO_SEQ'), '3', 'PROFESSOR.DM_SITUACAO', 'Pendente');
+    (NEXTVAL('DOMINIO_SEQ'), '2', 'PROFESSOR.DM_SITUACAO', 'Pendente');
 
 ALTER TABLE PROFESSOR
     ADD CONSTRAINT PROFESSOR_UK UNIQUE (MATRICULA);

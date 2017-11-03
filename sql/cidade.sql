@@ -1,14 +1,13 @@
-/*
-*	Base de dados
-*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
-* 
-*	Script para criação da tabela INSTITUICAO
-* 
-*	@author Nicholas Leite <nicklleite@gmail.com>
-*	@repo https://github.com/nicklleite/nllws
-*	@date 04/09/2017
-*
-*/
+/**
+ * Base de dados - EducaTech
+ *
+ * Script para criação da tabela CIDADE
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @see https://github.com/nicklleite/educatech
+ * @date 04/09/2017
+ * 
+ */
 
 -- SEQUENCE para a chave primária
 CREATE SEQUENCE CIDADE_SEQ
@@ -30,6 +29,12 @@ CREATE TABLE CIDADE (
 );
 
 ALTER SEQUENCE CIDADE_SEQ OWNED BY CIDADE.ID;
+
+ALTER TABLE CIDADE
+    ADD CONSTRAINT CIDADE_ESTADO_FK FOREIGN KEY (ESTADO_ID) REFERENCES ESTADO (ID);
+CREATE INDEX CIDADE_ESTADO_FK_I
+    ON CIDADE (ESTADO_ID);
+
 
 INSERT INTO CIDADE (ID, ESTADO_ID, COD_IBGE, CIDADE) VALUES
 (NEXTVAL('CIDADE_SEQ'), 1, 1200013, 'Acrelândia'),

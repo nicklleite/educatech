@@ -18,7 +18,7 @@ class CidadeApiController extends CI_Controller {
      * @since v0.0.3
      * @version v0.0.3
      */
-    public function getAll() {
+    public function buscarCidades() {
         header("Content-Type: application/json");
 
         $q = $this->cidade->buscar();
@@ -46,7 +46,7 @@ class CidadeApiController extends CI_Controller {
      * @since v0.0.3
      * @version v0.0.3
      */
-    public function getPorEstado($estadoId) {
+    public function buscarCidadesPorEstado($estadoId) {
         header("Content-Type: application/json");
 
         $q = $this->cidade->buscarPorEstado($estadoId);
@@ -74,7 +74,7 @@ class CidadeApiController extends CI_Controller {
      * @since v0.0.3
      * @version v0.0.3
      */
-    public function getPorCodIbge($codIbge) {
+    public function buscarCidadesPorCodIbge($codIbge) {
         header("Content-Type: application/json");
 
         $q = $this->cidade->buscarPorCodIbge($codIbge);

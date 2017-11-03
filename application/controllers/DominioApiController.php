@@ -18,7 +18,7 @@ class DominioApiController extends CI_Controller {
      * @since v0.0.0
      * @version v0.0.3
      */
-    public function getAll() {
+    public function buscarDominios() {
         header("Content-Type: application/json");
 
         $q = $this->dominio->buscar();
@@ -47,7 +47,7 @@ class DominioApiController extends CI_Controller {
      * @since v0.0.0
      * @version v0.0.3
      */
-    public function getByDominio($dominio) {
+    public function buscarDominiosPorDominio($dominio) {
         header("Content-Type: application/json");
 
         if (isset($dominio) && $dominio != "") {

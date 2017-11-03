@@ -1,14 +1,13 @@
-﻿/*
-*	Base de dados
-*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
-* 
-*	Script para criação da tabela PESSOA
-* 
-*	@author Nicholas Leite <nicklleite@gmail.com>
-*	@repo https://github.com/nicklleite/nllws
-*	@date 28/08/2017
-*
-*/
+﻿/**
+ * Base de dados - EducaTech
+ *
+ * Script para criação da tabela PESSOA
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @see https://github.com/nicklleite/educatech
+ * @date 28/08/2017
+ * 
+ */
 
 -- SEQUENCE para a chave primária
 CREATE SEQUENCE PESSOA_SEQ
@@ -34,10 +33,8 @@ CREATE TABLE PESSOA (
     NUMERO VARCHAR(5) NOT NULL,
     COMPLEMENTO VARCHAR(50),
     BAIRRO VARCHAR (200) NOT NULL,
-
     EMAIL VARCHAR(100) NOT NULL,
     TELEFONE VARCHAR(15) NOT NULL,
-
     DATA_CADASTRO TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT PESSOA_PK PRIMARY KEY (ID)
@@ -57,14 +54,15 @@ CREATE INDEX PESSOA_CIDADE_FK_I
     ON PESSOA (CIDADE_ID);
 
 ALTER TABLE PESSOA
-    ADD CONSTRAINT PESSOA_DMLOGRADOURO_CK CHECK (DM_LOGRADOURO IN ('R', 'AV', 'TV', 'VL', 'ROD'));
+    ADD CONSTRAINT PESSOA_DMLOGRADOURO_CK CHECK (DM_LOGRADOURO IN ('0', '1', '2', '3', '4'));
+
 INSERT INTO DOMINIO
 VALUES
-    (NEXTVAL('DOMINIO_SEQ'), 'R', 'PESSOA.DM_LOGRADOURO', 'Rua'),
-    (NEXTVAL('DOMINIO_SEQ'), 'AV', 'PESSOA.DM_LOGRADOURO', 'Avenida'),
-    (NEXTVAL('DOMINIO_SEQ'), 'TV', 'PESSOA.DM_LOGRADOURO', 'Travessa'),
-    (NEXTVAL('DOMINIO_SEQ'), 'VL', 'PESSOA.DM_LOGRADOURO', 'Vila'),
-    (NEXTVAL('DOMINIO_SEQ'), 'ROD', 'PESSOA.DM_LOGRADOURO', 'Rodovia');
+    (NEXTVAL('DOMINIO_SEQ'), '0', 'PESSOA.DM_LOGRADOURO', 'Rua'),
+    (NEXTVAL('DOMINIO_SEQ'), '1', 'PESSOA.DM_LOGRADOURO', 'Avenida'),
+    (NEXTVAL('DOMINIO_SEQ'), '2', 'PESSOA.DM_LOGRADOURO', 'Travessa'),
+    (NEXTVAL('DOMINIO_SEQ'), '3', 'PESSOA.DM_LOGRADOURO', 'Vila'),
+    (NEXTVAL('DOMINIO_SEQ'), '4', 'PESSOA.DM_LOGRADOURO', 'Rodovia');
 
 ALTER TABLE PESSOA
     ADD CONSTRAINT PESSOA_UK_1 UNIQUE (CPF);

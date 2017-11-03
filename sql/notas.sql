@@ -1,14 +1,13 @@
-﻿/*
-*	Base de dados
-*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
-* 
-*	Script para criação da tabela NOTAS
-* 
-*	@author Nicholas Leite <nicklleite@gmail.com>
-*	@repo https://github.com/nicklleite/nllws
-*	@date 01/09/2017
-*
-*/
+﻿/**
+ * Base de dados - EducaTech
+ *
+ * Script para criação da tabela NOTAS
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @see https://github.com/nicklleite/educatech
+ * @date 01/09/2017
+ * 
+ */
 
 -- SEQUENCE para a chave primária
 CREATE SEQUENCE NOTAS_SEQ
@@ -24,7 +23,6 @@ CREATE TABLE NOTAS (
     ID BIGINT NOT NULL DEFAULT NEXTVAL('NOTAS_SEQ'),
     ALUNO_ID BIGINT NOT NULL,
     DISCIPLINA_ID BIGINT NOT NULL,
-
     NOTA_P1 NUMERIC(3,2) NOT NULL,
     NOTA_P2 NUMERIC(3,2) NOT NULL,
 

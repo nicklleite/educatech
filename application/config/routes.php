@@ -18,11 +18,11 @@ $route['translate_uri_dashes'] = FALSE;
  * @since v0.0.0
  * @version v0.0.3
  */
-$route['api/dominio']['get'] = "DominioApiController/getAll";
-$route['api/dominio/([a-zA-Z-_]+(.)[a-zA-Z-_]+)']['get'] = "DominioApiController/getByDominio/$1";
+$route['api/dominio']['get'] = "DominioApiController/buscarDominios";
+$route['api/dominio/([a-zA-Z-_]+(.)[a-zA-Z-_]+)']['get'] = "DominioApiController/buscarDominiosPorDominio/$1";
 
 /**
- * Rotas para a consulta de valores de domínios
+ * Rotas para a consulta de cidades do Brasil
  *
  * 1) http://educatech.dev/api/cidade | GET | Retornar todas as cidades do
  * 	Brasil
@@ -38,12 +38,12 @@ $route['api/dominio/([a-zA-Z-_]+(.)[a-zA-Z-_]+)']['get'] = "DominioApiController
  * @since v0.0.3
  * @version v0.0.3
  */
-$route['api/cidade']['get'] = "CidadeApiController/getAll";
-$route['api/cidade/([1-27]|1[0-2])']['get'] = "CidadeApiController/getPorEstado/$1";
-$route['api/cidade/([0-9]{1,7})']['get'] = "CidadeApiController/getPorCodIbge/$1";
+$route['api/cidade']['get'] = "CidadeApiController/buscarCidades";
+$route['api/cidade/([1-27]|1[0-2])']['get'] = "CidadeApiController/buscarCidadesPorEstado/$1";
+$route['api/cidade/([0-9]{1,7})']['get'] = "CidadeApiController/buscarCidadesPorCodIbge/$1";
 
 /**
- * Rotas para a consulta de valores de domínios
+ * Rotas para a consulta de estados do Brasil
  *
  * 1) http://educatech.dev/api/cidade | GET | Retornar todos os estados do
  * 	Brasil
@@ -57,5 +57,17 @@ $route['api/cidade/([0-9]{1,7})']['get'] = "CidadeApiController/getPorCodIbge/$1
  * @since v0.0.3
  * @version v0.0.3
  */
-$route['api/estado']['get'] = "EstadoApiController/getAll";
-$route['api/estado/([0-9]{1,2})']['get'] = "EstadoApiController/getPorCodIbge/$1";
+$route['api/estado']['get'] = "EstadoApiController/buscarEstados";
+$route['api/estado/([0-9]{1,2})']['get'] = "EstadoApiController/buscarEstadosPorCodIbge/$1";
+
+/**
+ * Rotas para a consulta de instituição
+ *
+ * @see  https://www.codeigniter.com/userguide3/general/routing.html
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @package application\config
+ * @since v0.0.3
+ * @version v0.0.3
+ */
+$route['api/instituicao']['get'] = "InstituicaoApiController/buscarInstituicoes";

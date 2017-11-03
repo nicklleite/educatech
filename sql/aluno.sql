@@ -1,14 +1,13 @@
-﻿/*
-*	Base de dados
-*	NLLWS (a.k.a NICHOLAS LOPES LEITE WEB SERIVICE)
-* 
-*	Script para criação da tabela ALUNO
-* 
-*	@author Nicholas Leite <nicklleite@gmail.com>
-*	@repo https://github.com/nicklleite/nllws
-*	@date 28/08/2017
-*
-*/
+﻿/**
+ * Base de dados - EducaTech
+ *
+ * Script para criação da tabela ALUNO
+ *
+ * @author Nicholas Leite <nicklleite@gmail.com>
+ * @see https://github.com/nicklleite/educatech
+ * @date 28/08/2017
+ * 
+ */
 
 -- SEQUENCE para a chave primária
 CREATE SEQUENCE ALUNO_SEQ
@@ -23,10 +22,10 @@ DROP TABLE IF EXISTS ALUNO;
 CREATE TABLE ALUNO (
     ID BIGINT NOT NULL DEFAULT NEXTVAL('ALUNO_SEQ'),
     PESSOA_ID BIGINT NOT NULL,
-
+    CURSO_ID BIGINT NOT NULL,
     RA VARCHAR(7) NOT NULL,
     DATA_MATRICULA DATE DEFAULT CURRENT_DATE,
-    DM_SITUACAO VARCHAR(2) NOT NULL DEFAULT '0',
+    DM_SITUACAO VARCHAR(1) NOT NULL DEFAULT '0',
 
     CONSTRAINT ALUNO_PK PRIMARY KEY (ID)
 );
@@ -39,12 +38,17 @@ CREATE INDEX ALUNO_PESSOA_FK_I
     ON ALUNO (PESSOA_ID);
 
 ALTER TABLE ALUNO
+    ADD CONSTRAINT ALUNO_CURSO_FK FOREIGN KEY (CURSO_ID) REFERENCES CURSO (ID);
+CREATE INDEX ALUNO_CURSO_FK_I
+    ON ALUNO (CURSO_ID);
+
+ALTER TABLE ALUNO
     ADD CONSTRAINT ALUNO_DMSITUACAO_CK CHECK (DM_SITUACAO IN ('0', '1', '2'));
 INSERT INTO DOMINIO
 VALUES
-    (NEXTVAL('DOMINIO_SEQ'), '1', 'ALUNO.DM_SITUACAO', 'Não Matriculado'),
-    (NEXTVAL('DOMINIO_SEQ'), '2', 'ALUNO.DM_SITUACAO', 'Matriculado'),
-    (NEXTVAL('DOMINIO_SEQ'), '3', 'ALUNO.DM_SITUACAO', 'Pendente');
+    (NEXTVAL('DOMINIO_SEQ'), '0', 'ALUNO.DM_SITUACAO', 'Não Matriculado'),
+    (NEXTVAL('DOMINIO_SEQ'), '1', 'ALUNO.DM_SITUACAO', 'Matriculado'),
+    (NEXTVAL('DOMINIO_SEQ'), '2', 'ALUNO.DM_SITUACAO', 'Pendente');
 
 ALTER TABLE ALUNO
     ADD CONSTRAINT ALUNO_UK UNIQUE (RA);
