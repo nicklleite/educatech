@@ -61,7 +61,7 @@ $route['api/estado']['get'] = "EstadoApiController/buscarEstados";
 $route['api/estado/([0-9]{1,2})']['get'] = "EstadoApiController/buscarEstadosPorCodIbge/$1";
 
 /**
- * Rotas para a consulta de instituição
+ * Rotas para consulta, cadastro, alteração e exclusão de uma Instituição
  *
  * @see  https://www.codeigniter.com/userguide3/general/routing.html
  *
@@ -71,3 +71,6 @@ $route['api/estado/([0-9]{1,2})']['get'] = "EstadoApiController/buscarEstadosPor
  * @version v0.0.3
  */
 $route['api/instituicao']['get'] = "InstituicaoApiController/buscarInstituicoes";
+$route['api/instituicao']['post'] = "InstituicaoApiController/cadastrarInstituicao";
+$route['api/instituicao/(:num)']['patch'] = "InstituicaoApiController/atualizarInstituicao/$1";
+$route['api/instituicao/(:num)']['delete'] = "InstituicaoApiController/removerInstituicao/$1";
