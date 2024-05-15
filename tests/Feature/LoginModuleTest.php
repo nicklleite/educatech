@@ -7,11 +7,23 @@ use function Pest\Laravel\postJson;
 beforeEach(function ()
 {
     $this->user = User::first();
+
+    $this->response = $this->get(route("web.auth.login"));
 });
 
 afterAll(function ()
 {
     unset ($this->user);
+});
+
+it("should get a 200 HTTP status on login page", function ()
+{
+    expect($this->response->getStatusCode())->toBe(Response::HTTP_OK);
+});
+
+it("should see specifc elements on the page", function ()
+{
+    $this->response->assertSee("Login");
 });
 
 it("should get a 200 HTTP status on login with valid credentials and the user data should be returned with the auth token", function ()
