@@ -17,14 +17,13 @@ class LoginController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password))
-        {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages(['The provided credentials are incorrect.']);
         }
 
         return response()->json([
-            "user" => $user,
-            "token" => $user->createToken('auth_token')->plainTextToken,
+            'user' => $user,
+            'token' => $user->createToken('auth_token')->plainTextToken,
         ]);
     }
 }

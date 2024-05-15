@@ -1,36 +1,32 @@
 <?php
+
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
 use function Pest\Laravel\postJson;
 
-beforeEach(function ()
-{
+beforeEach(function () {
     $this->user = User::first();
 
-    $this->response = $this->get(route("web.auth.login"));
+    $this->response = $this->get(route('web.auth.login'));
 });
 
-afterAll(function ()
-{
-    unset ($this->user);
+afterAll(function () {
+    unset($this->user);
 });
 
-it("should get a 200 HTTP status on login page", function ()
-{
+it('should get a 200 HTTP status on login page', function () {
     expect($this->response->getStatusCode())->toBe(Response::HTTP_OK);
 });
 
-it("should see specifc elements on the page", function ()
-{
-    $this->response->assertSee("Login");
+it('should see specifc elements on the page', function () {
+    $this->response->assertSee('Login');
 });
 
-it("should get a 200 HTTP status on login with valid credentials and the user data should be returned with the auth token", function ()
-{
-    $response = postJson(route("api.login"), [
+it('should get a 200 HTTP status on login with valid credentials and the user data should be returned with the auth token', function () {
+    $response = postJson(route('api.login'), [
         'email' => $this->user->email,
-        'password' => "password",
+        'password' => 'password',
     ]);
 
     expect($response->getStatusCode())
@@ -38,24 +34,23 @@ it("should get a 200 HTTP status on login with valid credentials and the user da
         ->and($response->getContent())
         ->toBeJson()
         ->and($response->assertJsonStructure([
-            "user" => [
-                "code",
-                "name",
-                "email",
-                "email_verified_at",
-                "created_at",
-                "updated_at",
-                "deleted_at",
+            'user' => [
+                'code',
+                'name',
+                'email',
+                'email_verified_at',
+                'created_at',
+                'updated_at',
+                'deleted_at',
             ],
-            "token",
+            'token',
         ]));
 });
 
-it("should get a 422 HTTP status on login with an empty email and validation error messages should be returned rather than the user data", function ()
-{
-    $response = postJson(route("api.login"), [
-        'email' => "",
-        'password' => "password",
+it('should get a 422 HTTP status on login with an empty email and validation error messages should be returned rather than the user data', function () {
+    $response = postJson(route('api.login'), [
+        'email' => '',
+        'password' => 'password',
     ]);
 
     expect($response->getStatusCode())
@@ -63,18 +58,17 @@ it("should get a 422 HTTP status on login with an empty email and validation err
         ->and($response->getContent())
         ->toBeJson()
         ->and($response->assertJsonStructure([
-            "message",
-            "errors" => [
-                "email" => [],
+            'message',
+            'errors' => [
+                'email' => [],
             ],
         ]));
 });
 
-it("should get a 422 HTTP status on login with an empty password and validation error messages should be returned rather than the user data", function ()
-{
-    $response = postJson(route("api.login"), [
+it('should get a 422 HTTP status on login with an empty password and validation error messages should be returned rather than the user data', function () {
+    $response = postJson(route('api.login'), [
         'email' => $this->user->email,
-        'password' => "",
+        'password' => '',
     ]);
 
     expect($response->getStatusCode())
@@ -82,18 +76,17 @@ it("should get a 422 HTTP status on login with an empty password and validation 
         ->and($response->getContent())
         ->toBeJson()
         ->and($response->assertJsonStructure([
-            "message",
-            "errors" => [
-                "password" => [],
+            'message',
+            'errors' => [
+                'password' => [],
             ],
         ]));
 });
 
-it("should get a 422 HTTP status on login with invalid credentials and validation error messages should be returned rather than the user data", function ()
-{
-    $response = postJson(route("api.login"), [
+it('should get a 422 HTTP status on login with invalid credentials and validation error messages should be returned rather than the user data', function () {
+    $response = postJson(route('api.login'), [
         'email' => $this->user->email,
-        'password' => "password1",
+        'password' => 'password1',
     ]);
 
     expect($response->getStatusCode())
@@ -101,7 +94,7 @@ it("should get a 422 HTTP status on login with invalid credentials and validatio
         ->and($response->getContent())
         ->toBeJson()
         ->and($response->assertJsonStructure([
-            "message",
-            "errors" => [],
+            'message',
+            'errors' => [],
         ]));
 });
